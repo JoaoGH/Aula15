@@ -1,2 +1,0 @@
-def principal():
-    print("wegfwef")
