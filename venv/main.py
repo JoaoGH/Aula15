@@ -11,7 +11,11 @@ def telaClientes():
         e=email.get()
         t=tel.get()
         f = Funcoes(0,0,n,c,e,t,"","","",0,0)
-        lb5 = Label(window, text=f.cadClientes()).place(x=150, y=450)
+        Label(window, text=f.cadClientes()).place(x=150, y=450)
+        nome.delete(0,END)
+        cpf.delete(0,END)
+        email.delete(0,END)
+        tel.delete(0,END)
     window = Tk()
     window.title("Cadastro do barulho")
     window.geometry("600x500")
@@ -37,31 +41,82 @@ def telaClientes():
 def listarClientes():
     window = Tk()
     window.title("Cadastro do barulho")
-    window.geometry("600x500")
+    window.geometry("700x600")
     lista = Funcoes(0, 0, "", "", "", "", "", "", "", 0, 0)
     for i in range(len(lista.listaClientes())):
         val = lista.listaClientes()[i]
-        for n in range(len(val)):  # Column
+        for j in range(len(val)):
             b = Entry(window)
-            b.insert(0, val[n])
-            b.grid(row=i, column=n)
-            # b.place(x=100, y=100)
+            b.insert(0, val[j])
+            b.grid(row=i, column=j)
     window.mainloop()
 
 def editarClientes():
-    print("ola2")
+
+    def busca():
+        def editar():
+            f = Funcoes(id.get(), 0, nome.get(), cpf.get(), email.get(), tel.get(),"", "", "", 0, 0)
+            Label(window, text=f.edtClientes()).place(x=75, y=350)
+            zerar()
+        def deletar():
+            f = Funcoes(id.get(), 0, "","", "", "","", "", "", 0, 0)
+            Label(window, text=f.delClientes()).place(x=75, y=350)
+            zerar()
+        def zerar():
+            id.delete(0, END)
+            nome.delete(0, END)
+            cpf.delete(0, END)
+            email.delete(0, END)
+            tel.delete(0, END)
+        f = Funcoes(id.get(),0,"","","","","","","",0,0)
+        f.busClientes()
+        val = f.busClientes()[0]
+        Label(window, text="Nome").place(x=50,y=100)
+        nome = Entry(window)
+        nome.insert(0,val[1])
+        nome.place(x=125, y=100)
+        Label(window, text="CPF").place(x=50, y=150)
+        cpf = Entry(window)
+        cpf.insert(0,val[2])
+        cpf.place(x=125,y=150)
+        Label(window, text="Email").place(x=50, y=200)
+        email = Entry(window)
+        email.insert(0, val[3])
+        email.place(x=125, y=200)
+        Label(window, text="Telefone").place(x=50, y=250)
+        tel = Entry(window)
+        tel.insert(0, val[4])
+        tel.place(x=125, y=250)
+        edt = Button(window,text="Editar", command=editar)
+        edt.place(x=50, y=300)
+        dlt = Button(window, text="Deletar", command=deletar)
+        dlt.place(x=150, y=300)
+
+    window = Tk()
+    window.title("Cadastro do barulho")
+    window.geometry("600x500")
+    id = Entry(window)
+    Label(window, text="Informe a ID").place(x=50, y=50)
+    id.place(x=125, y=50)
+    busca = Button(window, command=busca, text="Buscar")
+    busca.place(x=275, y=50)
+    window.mainloop()
 
 def telaProdutos():
     def chamaFuncao():
         c = codigo.get()
         d = descricao.get()
         u = unidade.get()
-        cP = cPreco.get()
-        vP = vPreco.get()
-        ret = Label(window, text="")
-        cadastro = Funcoes(0, 0, "", "", "", "", c, d, u, float(cP), float(vP))
-        ret['text'] = cadastro.cadastraProdutos()
-        ret.place(x=100, y=350)
+        cP = float(cPreco.get())
+        vP = float(vPreco.get())
+        f = Funcoes(0, 0, "", "", "", "", c, d, u, cP, vP)
+        Label(window, text=f.cadProdutos()).place(x=150, y=450)
+        codigo.delete(0,END)
+        descricao.delete(0,END)
+        unidade.delete(0,END)
+        cPreco.delete(0,END)
+        vPreco.delete(0,END)
+
 
     window = Tk()
     window.title("Cadastro do barulho")
@@ -92,21 +147,81 @@ def telaProdutos():
 def listarProdutos():
     window = Tk()
     window.title("Cadastro do barulho")
-    window.geometry("600x500")
+    window.geometry("700x600")
     lista = Funcoes(0, 0, "", "", "", "", "", "", "", 0, 0)
     for i in range(len(lista.listaProdutos())):
         val = lista.listaProdutos()[i]
-        for n in range(len(val)):  # Column
+        for j in range(len(val)):  # Column
             b = Entry(window)
-            b.insert(0, val[n])
-            b.grid(row=i, column=n)
+            b.insert(0, val[j])
+            b.grid(row=i, column=j)
     window.mainloop()
 
+
 def editarProdutos():
-    print("ola5")
-# def cadClientes():
+    def busca():
+        def editar():
+            f = Funcoes(0, id.get, "", "", "", "", codigo.get(), des.get(), un.get(), float(cPreco.get()),float(vPreco.get()))
+            Label(window, text=f.edtProdutos()).place(x=75, y=400)
+            zerar()
+        def deletar():
+            f = Funcoes(0, id.get(), "", "", "", "", "", "", "", 0, 0)
+            Label(window, text=f.delProdutos()).place(x=75, y=400)
+            zerar()
+        def zerar():
+            id.delete(0, END)
+            codigo.delete(0, END)
+            des.delete(0, END)
+            un.delete(0, END)
+            cPreco.delete(0, END)
+            vPreco.delete(0, END)
 
+        f = Funcoes(0, id.get(), "", "", "", "", "", "", "", 0, 0)
+        val = f.busProdutos()[0]
+        Label(window, text="Código").place(x=50, y=100)
+        codigo = Entry(window)
+        codigo.insert(0, val[1])
+        codigo.place(x=200, y=100)
+        Label(window, text="Descrição").place(x=50, y=150)
+        des = Entry(window)
+        des.insert(0, val[2])
+        des.place(x=200, y=150)
+        Label(window, text="Unidade").place(x=50, y=200)
+        un = Entry(window)
+        un.insert(0, val[3])
+        un.place(x=200, y=200)
+        Label(window, text="Preço de Compra").place(x=50, y=250)
+        cPreco = Entry(window)
+        cPreco.insert(0, val[4])
+        cPreco.place(x=200, y=250)
+        Label(window, text="Preço de Venda").place(x=50, y=300)
+        vPreco = Entry(window)
+        vPreco.insert(0, val[5])
+        vPreco.place(x=200, y=300)
+        edt = Button(window, text="Editar", command=editar)
+        edt.place(x=50, y=350)
+        dlt = Button(window, text="Deletar", command=deletar)
+        dlt.place(x=200, y=350)
 
+    window = Tk()
+    window.title("Cadastro do barulho")
+    window.geometry("600x500")
+    id = Entry(window)
+    Label(window, text="Informe a ID").place(x=50, y=50)
+    id.place(x=125, y=50)
+    busca = Button(window, command=busca, text="Buscar")
+    busca.place(x=275, y=50)
+    window.mainloop()
+
+class myList(Frame):
+    def __init__(self, master):
+        Frame.__init__(self, master)
+        self.scrollbar = Scrollbar(self, orient=VERTICAL)
+        self.listbox = Listbox(self, bg="white",
+            yscrollcommand=self.scrollbar.set)
+        self.scrollbar.config(command=self.listbox.yview)
+        self.listbox.pack(side=LEFT, fill=BOTH)
+        self.scrollbar.pack(side=LEFT, fill=BOTH)
 janela = Tk()
 janela.title("Cadastro do barulho")
 janela.geometry("600x500")
@@ -128,7 +243,9 @@ bt5.place(x=250, y=310)
 bt6 = Button (janela, text="Editar Informações de Produto", command=editarProdutos)
 bt6.place(x=250, y=350)
 
-
+lb5 = Label(janela, text="").place(x=150, y=450)
 
 
 janela.mainloop()
+
+
