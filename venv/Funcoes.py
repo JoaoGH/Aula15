@@ -122,11 +122,12 @@ class Funcoes():
         return returno
 
     def edtProdutos(self):
-        sql = "UPDATE produtos SET codigo ='"+str(self.codigo)+"', descricao = '"+str(self.descricao)+"', unidade = '"+str(self.unidade)+"', pCompra = '"+str(self.cPreco)+"', pVenda = '"+str(self.vPreco)+"' WHERE idprodutos = '"+str(self.idProduto)+"'"
+        sql = "UPDATE produtos SET codigo = %s, descricao = %s, unidade = %s, pCompra = %s, pVenda = %s WHERE idprodutos = %s"
+        val=(self.codigo, self.descricao, self.unidade, self.cPreco, self.vPreco, self.idProduto)
         try:
             con = pymysql.connect("localhost", "root", "", "quartoanoinfo")
             cur = con.cursor()
-            cur.execute(sql)
+            cur.execute(sql,val)
             con.commit()
             returno = "Sucesso"
         except:
