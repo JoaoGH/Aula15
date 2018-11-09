@@ -164,4 +164,3 @@ class Funcoes():
             returno = "Falha"
         con.close()
         return returno
-
